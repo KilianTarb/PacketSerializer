@@ -3,13 +3,11 @@ CC = g++
 INCLUDEFLAGS = -Iinclude
 OUTFLAGS = -o build/
 FLAGS = -std=c++17
-SSLFLAGS = -lssl -lcrypto 
 
 all: 
-	${CC} -c lib/indexfile.cpp ${INCLUDEFLAGS} ${FLAGS} ${OUTFLAGS}indexfile.o
-	${CC} -c lib/AesEnc.cpp ${INCLUDEFLAGS} ${FLAGS} ${OUTFLAGS}AesEnc.o
+	${CC} -c lib/PacketSerializer.cpp ${INCLUDEFLAGS} ${FLAGS} ${OUTFLAGS}PacketSerializer.o
 	${CC} -c main.cpp ${INCLUDEFLAGS} ${FLAGS} ${OUTFLAGS}main.o
-	${CC} build/*  ${SSLFLAGS} ${FLAGS} ${OUTFLAGS}securedir
+	${CC} build/*  ${SSLFLAGS} ${FLAGS} ${OUTFLAGS}packet_serializer
 
 clean:
 	rm build/*
