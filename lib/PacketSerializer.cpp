@@ -18,7 +18,7 @@ const unsigned int PacketSerializer::GetPacketSize() {
             element = i;
         }
     }
-    return  lastIndex + _data_groups[element].body.length();
+    return  lastIndex + _data_groups[element].size;
 }
 
 /**
@@ -42,9 +42,10 @@ void PacketSerializer::AddDataGroup(DataGroup dg) {
 /**
  * @brief Contructs and adds a datagroup.
  */
-void PacketSerializer::AddDataGroup(unsigned int index, string body) {
+void PacketSerializer::AddDataGroup(unsigned int index, size_t size, char *body) {
     DataGroup dg;
     dg.index = index;
+    dg.size = size;
     dg.body = body;
     _data_groups.push_back(dg);
 }
@@ -57,7 +58,7 @@ void PacketSerializer::GetBytes(char *out) {
     // Sort _data_groups by index, lowest to highest.
     sort(_data_groups.begin(), _data_groups.end(), [](DataGroup i, DataGroup j) { return i.index < j.index; });
     for (int i = 0; i < _data_groups.size(); i++) {
-        for (int j = 0; j < _data_groups[i].body.length(); j++) {
+        for (int j = 0; j < _data_groups[i].size; j++) {
             bytes[_data_groups[i].index+j] = _data_groups[i].body[j];
         }
     }

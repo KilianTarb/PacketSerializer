@@ -5,5 +5,6 @@ using namespace std;
 
 struct DataGroup {
     unsigned int index;
-    string body;
+    size_t size;
+    char *body;
 };
