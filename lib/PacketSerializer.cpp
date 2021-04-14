@@ -52,12 +52,12 @@ void PacketSerializer::AddDataGroup(unsigned int index, string body) {
 /**
  * @brief Construct an ordered byte array based on the data group indexes.
  */
-char *PacketSerializer::GetBytes() {
+void PacketSerializer::GetBytes(char *out) {
     char bytes[_calculdatePacketSize()];
     for (int i = 0; i < _data_groups.size(); i++) {
         for (int j = 0; j < _data_groups[i].body.length(); j++) {
             bytes[_data_groups[i].index+j] = _data_groups[i].body[j];
         }
     }
-    return bytes;
+    strcpy(out, bytes);
 }

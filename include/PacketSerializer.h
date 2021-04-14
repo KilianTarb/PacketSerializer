@@ -17,5 +17,5 @@ class PacketSerializer
         vector<DataGroup *> GetDataGroups();
         void AddDataGroup(DataGroup dg);
         void AddDataGroup(unsigned int index, string body);
-        char *GetBytes();
+        void GetBytes(char *out);
 };
