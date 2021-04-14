@@ -6,7 +6,7 @@ PacketSerializer::~PacketSerializer() {}
 /**
  * @brief Returns the total packet size
  */
-const unsigned int PacketSerializer::_calculdatePacketSize() {
+const unsigned int PacketSerializer::GetPacketSize() {
     if (_data_groups.size() == 0)
         throw "DataGroup array is 0";
 
@@ -53,7 +53,7 @@ void PacketSerializer::AddDataGroup(unsigned int index, string body) {
  * @brief Construct an ordered byte array based on the data group indexes.
  */
 void PacketSerializer::GetBytes(char *out) {
-    char bytes[_calculdatePacketSize()];
+    char bytes[GetPacketSize()];
     for (int i = 0; i < _data_groups.size(); i++) {
         for (int j = 0; j < _data_groups[i].body.length(); j++) {
             bytes[_data_groups[i].index+j] = _data_groups[i].body[j];

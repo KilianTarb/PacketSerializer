@@ -8,13 +8,13 @@ class PacketSerializer
 {
     private:
         vector<DataGroup> _data_groups;
-        const unsigned int _calculdatePacketSize();
         
     public:
         PacketSerializer();
         ~PacketSerializer();
 
         vector<DataGroup *> GetDataGroups();
+        const unsigned int GetPacketSize();
         void AddDataGroup(DataGroup dg);
         void AddDataGroup(unsigned int index, string body);
         void GetBytes(char *out);
