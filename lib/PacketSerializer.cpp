@@ -51,6 +51,17 @@ void PacketSerializer::AddDataGroup(unsigned int index, size_t size, char *body)
 }
 
 /**
+ * @brief Contructs and adds a datagroup. DataGroup.size will be the size of `body`
+ */
+void PacketSerializer::AddDataGroup(unsigned int index, char *body) {
+    DataGroup dg;
+    dg.index = index;
+    dg.size = sizeof(body);
+    dg.body = body;
+    _data_groups.push_back(dg);
+}
+
+/**
  * @brief Construct an ordered byte array based on the data group indexes.
  */
 void PacketSerializer::GetBytes(char *out) {

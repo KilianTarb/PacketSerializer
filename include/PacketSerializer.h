@@ -18,5 +18,6 @@ class PacketSerializer
         const unsigned int GetPacketSize();
         void AddDataGroup(DataGroup dg);
         void AddDataGroup(unsigned int index, size_t size, char *body);
+        void AddDataGroup(unsigned int index, char *body);
         void GetBytes(char *out);
 };
