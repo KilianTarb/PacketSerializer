@@ -63,15 +63,38 @@ void PacketSerializer::AddDataGroup(unsigned int index, char *body) {
 
 /**
  * @brief Construct an ordered byte array based on the data group indexes.
+ * @param out
+ * Out array address
  */
 void PacketSerializer::GetBytes(char *out) {
     char bytes[GetPacketSize()];
+
     // Sort _data_groups by index, lowest to highest.
     sort(_data_groups.begin(), _data_groups.end(), [](DataGroup i, DataGroup j) { return i.index < j.index; });
+
+    // For each datagroup 
     for (int i = 0; i < _data_groups.size(); i++) {
+        // For each char in 
         for (int j = 0; j < _data_groups[i].size; j++) {
             bytes[_data_groups[i].index+j] = _data_groups[i].body[j];
+            cout << _data_groups[i].index+j << " = " << _data_groups[i].body[j] << " [" << _data_groups[i].body << "]" << endl;
+
+            // If at end of datagroup body size
+            if (j+1 == _data_groups[i].size) {
+                // Add padding to size of the difference of indexes
+                int paddingStart = _data_groups[i].index + (j+1);
+                int paddingEnd = 0;
+                // Check if this is the last DataGroup
+                if (i+1 < _data_groups.size())
+                    paddingEnd = _data_groups[i+1].index;
+
+                for (int start = paddingStart; start < paddingEnd; start++) {
+                    bytes[start] = '-';
+                }
+            }
+            
         }
     }
-    strcpy(out, bytes);
+
+    memcpy(out, bytes, sizeof(bytes));
 }
